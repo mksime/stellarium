@@ -1,5 +1,5 @@
 //
-// Name: Planetarium2
+// Name: Planetarium
 // License: Public Domain
 // Author: Marcelo Kenji Sime
 // Shortcut: 
@@ -10,10 +10,10 @@
 function showConstellation(inicio, final)
 {
     for (i = inicio; i < final; i++){
-        core.selectObjectByName(constellation[i], false);
-        StelMovementMgr.setFlagTracking(true);
         ConstellationMgr.setFlagConstellationPick(true);
         ConstellationMgr.setFlagIsolateSelected(true);
+        core.selectObjectByName(constellation[i], false);
+        StelMovementMgr.setFlagTracking(true);
         ConstellationMgr.setFlagLines(true);
         core.wait(3);
     }
@@ -22,6 +22,7 @@ function showConstellation(inicio, final)
 var constellation = new Array("Scorpius", "Sagittarius", "Crux", "Aquila", "Lyra", "Cygnus");
 
 //Definições iniciais
+StelMovementMgr.setFlagLockEquPos(false);
 SolarSystem.setFlagLabels(false); //Não aparece nome dos planetas
 core.setSelectedObjectInfo("None");
 core.setGuiVisible(true); //Mudar para false pra esconder toolbar. CTRL + T pra voltar a mostrar
@@ -92,6 +93,8 @@ core.wait(7.5);
 core.setTimeRate(0);
 GridLinesMgr.setFlagCelestialPoles(false);
 core.wait(3);
+core.moveToAltAzi(core.getViewAltitudeAngle(), 0, 10);//Olha para o norte sem mudar a altura
+core.wait(11);
 core.moveToRaDec(297.5, 24.0, 10); //Vai pro meio do triângulo de inverno
 core.wait(11);
 
@@ -101,7 +104,7 @@ ConstellationMgr.setFlagLines(false);
 core.wait(2);
 
 //Terceiro avanço - Nascer do Sol
-core.moveToAltAzi(90, 0, 10);
+StelMovementMgr.setFlagLockEquPos(false); //Impede a câmera de acompanhar o céu
 core.moveToAltAzi(10, 90, 10);
 core.wait(11);
 core.setTimeRate(1440);
