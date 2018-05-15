@@ -1,0 +1,113 @@
+//
+// Name: Planetarium2
+// License: Public Domain
+// Author: Marcelo Kenji Sime
+// Shortcut: 
+// Description: Apresentação para inverno
+//
+
+//Função para mostrar as constelações
+function showConstellation(inicio, final)
+{
+    for (i = inicio; i < final; i++){
+        core.selectObjectByName(constellation[i], false);
+        StelMovementMgr.setFlagTracking(true);
+        ConstellationMgr.setFlagConstellationPick(true);
+        ConstellationMgr.setFlagIsolateSelected(true);
+        ConstellationMgr.setFlagLines(true);
+        core.wait(3);
+    }
+}
+
+var constellation = new Array("Scorpius", "Sagittarius", "Crux", "Aquila", "Lyra", "Cygnus");
+
+//Definições iniciais
+SolarSystem.setFlagLabels(false); //Não aparece nome dos planetas
+core.setSelectedObjectInfo("None");
+core.setGuiVisible(true); //Mudar para false pra esconder toolbar. CTRL + T pra voltar a mostrar
+core.clear("natural"); //Tira grids pontos cardeais, etc.
+StelMovementMgr.zoomTo(60); //Define o campo de visão para 60 graus
+core.setObserverLocation(-46.636108333, -23.5475, 1008, 10, "São Paulo", "Earth"); //define localização pra sao paulo
+core.setDate("2018-08-11T16:00:00", "local");
+core.setTimeRate(0); // Pára o tempo
+core.moveToAltAzi(90, 0, 10); //Move para o zênite
+MilkyWay.setIntensity(0.7);
+core.wait(10);
+StelSkyDrawer.setBortleScaleIndex(9);
+
+//Pôr do Sol
+core.moveToAltAzi(10, 270, 10); //Move para a altura 10 graus, azimute 270 graus em 10 segundos
+core.wait(10);
+core.setTimeRate(1440); //Faz o tempo avançar 4h em 10s
+core.wait(10);
+core.setTimeRate(0);
+core.moveToAltAzi(90, 270, 10); //Volta para o zênite
+core.wait(9);
+StelMovementMgr.zoomTo(120);
+core.wait(3);
+for(i = 1; i < 9; i++) //Talvez seja desnecessário
+{
+    StelSkyDrawer.setBortleScaleIndex(10 - i);
+    core.wait(0.9);
+}
+
+//Constelações
+ConstellationMgr.setFlagArt(true); //Mostra o desenho das constelações ocidentais
+core.wait(3);
+ConstellationMgr.setFlagBoundaries(true); //mostra as linhas das constelações
+core.wait(3);
+ConstellationMgr.setFlagArt(false);
+core.wait(3);
+ConstellationMgr.setFlagBoundaries(false);
+core.wait(3);
+GridLinesMgr.setFlagAzimuthalGrid(true);
+core.wait(3);
+StelMovementMgr.zoomTo(60);
+core.moveToAltAzi(58, 270, 10); //Move para a altura 20 graus, azimute 270 graus em 10 segundos
+core.wait(13);
+core.moveToAltAzi(58, 150, 13);
+core.wait(11);
+core.moveToAltAzi(58, 30, 13);
+core.wait(11);
+core.moveToAltAzi(58, 270, 13);
+core.wait(11);
+GridLinesMgr.setFlagAzimuthalGrid(false);
+core.wait(5);
+
+//Começou
+showConstellation(0, 3);
+
+core.moveToRaDec(0, -90, 10);
+core.wait(11);
+GridLinesMgr.setFlagCelestialPoles(true);
+core.wait(3);
+LandscapeMgr.setFlagCardinalsPoints(true);
+core.wait(3);
+ConstellationMgr.setFlagLines(false);
+core.wait(2);
+
+//Segundo avanço
+core.setTimeRate(1440); //Faz o tempo avançar 3h em 7.5s
+core.wait(7.5);
+core.setTimeRate(0);
+GridLinesMgr.setFlagCelestialPoles(false);
+core.wait(3);
+core.moveToRaDec(297.5, 24.0, 10); //Vai pro meio do triângulo de inverno
+core.wait(11);
+
+showConstellation(3, 6);
+
+ConstellationMgr.setFlagLines(false);
+core.wait(2);
+
+//Terceiro avanço - Nascer do Sol
+core.moveToAltAzi(90, 0, 10);
+core.moveToAltAzi(10, 90, 10);
+core.wait(11);
+core.setTimeRate(1440);
+core.wait(20);
+core.setTimeRate(0);
+
+LabelMgr.labelScreen("cabô", 200, 200, true, 20, "#ff0000"); //flag para verificar se rodou até o fim
+core.wait(3);
+LabelMgr.deleteAllLabels();

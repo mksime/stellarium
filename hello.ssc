@@ -1,0 +1,9 @@
+//
+// Name: Hello Universe
+// License: Public Domain
+// Author: 
+// Shortcut: Ctrl+U,2
+// Description: 
+//
+
+core.debug("Hello Universe");
