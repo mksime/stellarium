@@ -22,13 +22,14 @@ function showConstellation(inicio, final)
 var constellation = new Array("Scorpius", "Sagittarius", "Crux", "Aquila", "Lyra", "Cygnus");
 
 //Definições iniciais
+core.setSkyCulture("western");
 StelMovementMgr.setFlagLockEquPos(false);
 SolarSystem.setFlagLabels(false); //Não aparece nome dos planetas
 core.setSelectedObjectInfo("None");
-core.setGuiVisible(true); //Mudar para false pra esconder toolbar. CTRL + T pra voltar a mostrar
+core.setGuiVisible(false); //Mudar para false pra esconder toolbar. CTRL + T pra voltar a mostrar
 core.clear("natural"); //Tira grids pontos cardeais, etc.
 StelMovementMgr.zoomTo(60); //Define o campo de visão para 60 graus
-core.setObserverLocation(-46.636108333, -23.5475, 1008, 10, "São Paulo", "Earth"); //define localização pra sao paulo
+core.setObserverLocation(-46.636108333, -23.5475, 769, 10, "São Paulo", "Earth"); //define localização pra sao paulo
 core.setDate("2018-08-11T16:00:00", "local");
 core.setTimeRate(0); // Pára o tempo
 core.moveToAltAzi(90, 0, 10); //Move para o zênite
@@ -66,14 +67,14 @@ core.wait(3);
 StelMovementMgr.zoomTo(60);
 core.moveToAltAzi(58, 270, 10); //Move para a altura 20 graus, azimute 270 graus em 10 segundos
 core.wait(13);
-core.moveToAltAzi(58, 150, 13);
-core.wait(11);
-core.moveToAltAzi(58, 30, 13);
-core.wait(11);
-core.moveToAltAzi(58, 270, 13);
-core.wait(11);
 GridLinesMgr.setFlagAzimuthalGrid(false);
 core.wait(5);
+core.moveToAltAzi(58, 90, 15);
+/*core.wait(11);*/
+/*core.moveToAltAzi(58, 30, 13);*/
+/*core.wait(11);*/
+//core.moveToAltAzi(58, 260, 13);
+core.wait(16);
 
 //Começou
 showConstellation(0, 3);
@@ -95,22 +96,36 @@ GridLinesMgr.setFlagCelestialPoles(false);
 core.wait(3);
 core.moveToAltAzi(core.getViewAltitudeAngle(), 0, 10);//Olha para o norte sem mudar a altura
 core.wait(11);
-core.moveToRaDec(297.5, 24.0, 10); //Vai pro meio do triângulo de inverno
-core.wait(11);
+//Usa Gurvan Maral Od pra mostrar o triângulo
+core.setSkyCulture("mongolian");
+ConstellationMgr.setFlagConstellationPick(true);
+ConstellationMgr.setFlagIsolateSelected(true);
+core.selectObjectByName("Gurvan Maral Od (The Three Stags)", false);
+StelMovementMgr.setFlagTracking(true);
+ConstellationMgr.setFlagLines(true);
+core.wait(3);
 
-showConstellation(3, 6);
-
+core.setSkyCulture("western");
 ConstellationMgr.setFlagLines(false);
 core.wait(2);
 
-//Terceiro avanço - Nascer do Sol
+showConstellation(3, 6);
+
+ConstellationMgr.setFlagConstellationPick(false);
+ConstellationMgr.setFlagIsolateSelected(false);
+StelMovementMgr.setFlagTracking(false);
+ConstellationMgr.setFlagLines(false);
 StelMovementMgr.setFlagLockEquPos(false); //Impede a câmera de acompanhar o céu
-core.moveToAltAzi(10, 90, 10);
-core.wait(11);
+core.wait(2);
+
+//Terceiro avanço - Nascer do Sol
 core.setTimeRate(1440);
-core.wait(20);
+core.wait(7);
+core.moveToAltAzi(10, 90, 10);
+core.wait(13);
 core.setTimeRate(0);
 
-LabelMgr.labelScreen("cabô", 200, 200, true, 20, "#ff0000"); //flag para verificar se rodou até o fim
+//LabelMgr.labelScreen("cabô", 200, 200, true, 20, "#ff0000"); //flag para verificar se rodou até o fim
 core.wait(3);
 LabelMgr.deleteAllLabels();
+core.goHome();
