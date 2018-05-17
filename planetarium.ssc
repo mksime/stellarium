@@ -104,10 +104,11 @@ core.selectObjectByName("Gurvan Maral Od (The Three Stags)", false);
 StelMovementMgr.setFlagTracking(true);
 ConstellationMgr.setFlagLines(true);
 core.wait(3);
-
-core.setSkyCulture("western");
 ConstellationMgr.setFlagLines(false);
 core.wait(2);
+core.setSkyCulture("western");
+//ConstellationMgr.setFlagLines(false);
+core.wait(1);
 
 showConstellation(3, 6);
 
@@ -122,10 +123,11 @@ core.wait(2);
 core.setTimeRate(1440);
 core.wait(7);
 core.moveToAltAzi(10, 90, 10);
-core.wait(13);
+core.wait(18);
 core.setTimeRate(0);
 
 //LabelMgr.labelScreen("cabô", 200, 200, true, 20, "#ff0000"); //flag para verificar se rodou até o fim
 core.wait(3);
 LabelMgr.deleteAllLabels();
 core.goHome();
+core.setGuiVisible(true); //Volta a mostrar os menus
