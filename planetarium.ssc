@@ -47,7 +47,7 @@ core.moveToAltAzi(90, 270, 10); //Volta para o zênite
 core.wait(9);
 StelMovementMgr.zoomTo(120);
 core.wait(3);
-for(i = 1; i < 9; i++) //Talvez seja desnecessário
+for(i = 1; i < 9; i++) //Tira a poluição luminosa aos poucos
 {
     StelSkyDrawer.setBortleScaleIndex(10 - i);
     core.wait(0.9);
@@ -70,13 +70,13 @@ core.wait(13);
 GridLinesMgr.setFlagAzimuthalGrid(false);
 core.wait(5);
 core.moveToAltAzi(58, 90, 15);
-/*core.wait(11);*/
-/*core.moveToAltAzi(58, 30, 13);*/
-/*core.wait(11);*/
+//core.wait(11);
+//core.moveToAltAzi(58, 30, 13);
+//core.wait(11);
 //core.moveToAltAzi(58, 260, 13);
 core.wait(16);
 
-//Começou
+//Começa a mostrar as constelações individualmente
 showConstellation(0, 3);
 
 core.moveToRaDec(0, -90, 10);
@@ -96,8 +96,10 @@ GridLinesMgr.setFlagCelestialPoles(false);
 core.wait(3);
 core.moveToAltAzi(core.getViewAltitudeAngle(), 0, 10);//Olha para o norte sem mudar a altura
 core.wait(11);
+
 //Usa Gurvan Maral Od pra mostrar o triângulo
 core.setSkyCulture("mongolian");
+core.wait(1);
 ConstellationMgr.setFlagConstellationPick(true);
 ConstellationMgr.setFlagIsolateSelected(true);
 core.selectObjectByName("Gurvan Maral Od (The Three Stags)", false);
@@ -105,7 +107,7 @@ StelMovementMgr.setFlagTracking(true);
 ConstellationMgr.setFlagLines(true);
 core.wait(3);
 ConstellationMgr.setFlagLines(false);
-core.wait(2);
+core.wait(1);
 core.setSkyCulture("western");
 //ConstellationMgr.setFlagLines(false);
 core.wait(1);
