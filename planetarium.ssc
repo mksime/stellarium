@@ -14,23 +14,31 @@ function showConstellation(inicio, final)
         ConstellationMgr.setFlagIsolateSelected(true);
         core.selectObjectByName(constellation[i], false);
         StelMovementMgr.setFlagTracking(true);
+        core.wait(3);
         ConstellationMgr.setFlagLines(true);
         core.wait(3);
+        if (constellation[i] != "Crux"){
+            ConstellationMgr.setFlagLines(false);
+            ConstellationMgr.deselectConstellations();
+        }
     }
 }
 
 var constellation = new Array("Scorpius", "Sagittarius", "Crux", "Aquila", "Lyra", "Cygnus");
 
 //Definições iniciais
+core.setProjectionMode("ProjectionEqualArea");
+SolarSystem.setFlagMoonScale(true);
+SolarSystem.setMoonScale(5.2);
 core.setSkyCulture("western");
 StelMovementMgr.setFlagLockEquPos(false);
 SolarSystem.setFlagLabels(false); //Não aparece nome dos planetas
-core.setSelectedObjectInfo("None");
+core.setSelectedObjectInfo("None"); //Não aparecer texto com informações dos objetos
 core.setGuiVisible(false); //Mudar para false pra esconder toolbar. CTRL + T pra voltar a mostrar
 core.clear("natural"); //Tira grids pontos cardeais, etc.
 StelMovementMgr.zoomTo(60); //Define o campo de visão para 60 graus
 core.setObserverLocation(-46.636108333, -23.5475, 769, 10, "São Paulo", "Earth"); //define localização pra sao paulo
-core.setDate("2018-08-11T16:00:00", "local");
+core.setDate("2018-06-21T16:00:00", "local"); //Solstício de inverno
 core.setTimeRate(0); // Pára o tempo
 core.moveToAltAzi(90, 0, 10); //Move para o zênite
 MilkyWay.setIntensity(0.7);
@@ -109,15 +117,10 @@ core.wait(3);
 ConstellationMgr.setFlagLines(false);
 core.wait(1);
 core.setSkyCulture("western");
-//ConstellationMgr.setFlagLines(false);
 core.wait(1);
 
 showConstellation(3, 6);
 
-ConstellationMgr.setFlagConstellationPick(false);
-ConstellationMgr.setFlagIsolateSelected(false);
-StelMovementMgr.setFlagTracking(false);
-ConstellationMgr.setFlagLines(false);
 StelMovementMgr.setFlagLockEquPos(false); //Impede a câmera de acompanhar o céu
 core.wait(2);
 
@@ -128,8 +131,15 @@ core.moveToAltAzi(10, 90, 10);
 core.wait(18);
 core.setTimeRate(0);
 
-//LabelMgr.labelScreen("cabô", 200, 200, true, 20, "#ff0000"); //flag para verificar se rodou até o fim
+//Retorna para as configurações iniciais
 core.wait(3);
 LabelMgr.deleteAllLabels();
+core.setProjectionMode("ProjectionStereographic");
+ConstellationMgr.setFlagConstellationPick(false);
+ConstellationMgr.setFlagIsolateSelected(false);
+StelMovementMgr.setFlagTracking(false);
+ConstellationMgr.setFlagLines(false);
+SolarSystem.setFlagMoonScale(true);
 core.goHome();
+core.setTimeRate(1);
 core.setGuiVisible(true); //Volta a mostrar os menus
