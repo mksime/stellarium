@@ -27,7 +27,7 @@ function showConstellation(inicio, final)
 var constellation = new Array("Scorpius", "Sagittarius", "Crux", "Aquila", "Lyra", "Cygnus");
 
 //Definições iniciais
-core.setProjectionMode("ProjectionEqualArea");
+core.setProjectionMode("ProjectionStereographic");
 SolarSystem.setFlagMoonScale(true);
 SolarSystem.setMoonScale(5.2);
 core.setSkyCulture("western");
@@ -49,7 +49,7 @@ StelSkyDrawer.setBortleScaleIndex(9);
 core.moveToAltAzi(10, 270, 10); //Move para a altura 10 graus, azimute 270 graus em 10 segundos
 core.wait(10);
 core.setTimeRate(1440); //Faz o tempo avançar 4h em 10s
-core.wait(10);
+core.wait(15);
 core.setTimeRate(0);
 core.moveToAltAzi(90, 270, 10); //Volta para o zênite
 core.wait(9);
@@ -126,15 +126,14 @@ core.wait(2);
 
 //Terceiro avanço - Nascer do Sol
 core.setTimeRate(1440);
-core.wait(7);
+core.wait(5);
 core.moveToAltAzi(10, 90, 10);
-core.wait(18);
+core.wait(15);
 core.setTimeRate(0);
 
 //Retorna para as configurações iniciais
 core.wait(3);
 LabelMgr.deleteAllLabels();
-core.setProjectionMode("ProjectionStereographic");
 ConstellationMgr.setFlagConstellationPick(false);
 ConstellationMgr.setFlagIsolateSelected(false);
 StelMovementMgr.setFlagTracking(false);
