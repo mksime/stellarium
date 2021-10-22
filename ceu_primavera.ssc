@@ -1,0 +1,70 @@
+//
+// Name: ceu_primavera
+// License: Public Domain
+// Author: Marcelo Kenji Sime
+// Shortcut: 
+// Description: Apresentação para primavera
+//
+
+//Função para mostrar as constelações
+function showConstellation(inicio, final)
+{
+    for (i = inicio; i < final; i++){
+        ConstellationMgr.setFlagConstellationPick(true);
+        ConstellationMgr.setFlagIsolateSelected(true);
+        core.selectObjectByName(constellation[i], false);
+        StelMovementMgr.setFlagTracking(true);
+        core.wait(3);
+        if (constellation[i] != "Saturn" && constellation[i] != "Jupiter" && constellation[i] != "Andromeda Galaxy" && constellation[i] != "Algol"){
+            ConstellationMgr.setFlagLines(true);
+        }
+        if (constellation[i] == "Andromeda Galaxy"){
+            StelMovementMgr.zoomTo(6);
+            core.wait(3);
+            StelMovementMgr.zoomTo(60);
+        }
+        core.wait(3);
+        ConstellationMgr.setFlagLines(false);
+        core.wait(2);
+        ConstellationMgr.deselectConstellations();
+    }
+}
+
+var constellation = new Array("Grus", "Piscis Austrinus", "Saturn", "Jupiter", "Pegasus", "Andromeda", "Andromeda Galaxy", "Perseus", "Algol");
+
+//Definições iniciais
+ConstellationMgr.deselectConstellations();
+core.setProjectionMode("ProjectionStereographic");
+SolarSystem.setFlagMoonScale(true);
+SolarSystem.setMoonScale(5.2);
+core.setSkyCulture("western");
+StelMovementMgr.setFlagLockEquPos(false);
+SolarSystem.setFlagLabels(false); //Não aparece nome dos planetas
+core.setSelectedObjectInfo("None"); //Não aparecer texto com informações dos objetos
+core.setGuiVisible(false); //Mudar para false pra esconder toolbar. CTRL + T pra voltar a mostrar
+core.clear("natural"); //Tira grids pontos cardeais, etc.
+StelMovementMgr.zoomTo(60); //Define o campo de visão para 60 graus
+core.setObserverLocation(-46.636108333, -23.5475, 769, 10, "São Paulo", "Earth"); //define localização pra sao paulo
+core.setDate("2021-11-06T22:00:00", "local"); //Dia sem Lua
+core.setTimeRate(0); // Pára o tempo
+core.moveToAltAzi(90, 0, 10); //Move para o zênite
+MilkyWay.setIntensity(0.7);
+core.wait(10);
+StelSkyDrawer.setBortleScaleIndex(9);
+
+StelSkyDrawer.setBortleScaleIndex(1);
+
+showConstellation(0, 9);
+
+//Retorna para as configurações iniciais
+core.wait(3);
+LabelMgr.deleteAllLabels();
+ConstellationMgr.setFlagConstellationPick(false);
+ConstellationMgr.setFlagIsolateSelected(false);
+ConstellationMgr.deselectConstellations();
+StelMovementMgr.setFlagTracking(false);
+ConstellationMgr.setFlagLines(false);
+SolarSystem.setFlagMoonScale(true);
+core.goHome();
+core.setTimeRate(1);
+core.setGuiVisible(true); //Volta a mostrar os menus
